@@ -17,9 +17,6 @@ pub mod types;
 pub struct Opt {
     /// Name of the crate to snatch
     name: String,
-
-    #[clap(short, long)]
-    skip_cleanup: bool,
 }
 
 pub fn ensure_deps() {
@@ -220,8 +217,7 @@ async fn main() -> eyre::Result<()> {
         std::process::exit(1);
     }
 
-    //let tmp_dir = tempfile::tempdir()?;
-    let tmp_dir = PathBuf::from("./tmp");
+    let tmp_dir = tempfile::tempdir()?;
 
     let repo = format!("https://github.com/{}", config.repo);
     let template_context = Context {
@@ -231,15 +227,11 @@ async fn main() -> eyre::Result<()> {
         author: config.author.clone(),
     };
 
-    let repo_dir = tmp_dir.join("repo");
+    let repo_dir = tmp_dir.path().join("repo");
 
     template::instance_in(&repo_dir, &template_context)?;
 
     cargo_publish_repo(repo_dir)?;
-
-    if !args.skip_cleanup {
-        std::fs::remove_dir_all(tmp_dir)?;
-    }
 
     Ok(())
 }
