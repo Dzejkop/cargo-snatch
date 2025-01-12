@@ -30,9 +30,9 @@ But then life gets in the way. Maybe you get busy with a different project. Mayb
 
 There are many valid reasons for anybody to abandon a reserved crate on crates.io. But now, you've created a problem.
 
-A few months or years go by and someone else has an idea simmilar to yours, they start thinking of a name for their toy project and come up the same one too! But their dismay that crate already exists. Worse than that, it's just an empty package with no contact info to the owner. If they're lucky, maybe you have some contact info on your associated GitHub profile and they reach out to you to see if you're willing to release the name.
+A few months or years go by and someone else has an idea simmilar to yours, they start thinking of a name for their toy project and come up the same one too! But their to dismay that crate already exists. Worse than that, it's just an empty package with no contact info to the owner. If they're lucky, maybe you have some contact info on your associated GitHub profile and they reach out to you to see if you're willing to release the name.
 
-But there are still a few hurdles to overcome - I know that if I were in their place I would have never sent an email in the first place. The value of a presumably cool name is not enough for me to go against my social anxiety like that.
+But there are still a few hurdles to overcome - I know that if I were in their place I would have never sent that email in the first place. The value of a presumably cool name is not enough for me to go against my social anxiety like that.
 
 And even if they do manage to contact you in some way - will you respond? How easy it would be for the email to get lost in your Inbox full of very important things. And we're all busy people, I wouldn't judge you if you've read the email, put it aside for later, except the later would never come.
 
@@ -51,8 +51,6 @@ This utility depends on [`gh`](https://cli.github.com/), [`git`](https://git-scm
 
 ## Usage
 ```
-# If running for the first time this command will guide you through the setup process
-# Afterwards this command is fire-and-forget
 > cargo snatch crate-name
 ```
 
