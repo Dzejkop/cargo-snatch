@@ -1,6 +1,7 @@
 use std::{
     path::{Path, PathBuf},
     process::Command,
+    str::FromStr,
 };
 
 use clap::Parser;
@@ -14,9 +15,32 @@ pub mod template;
 pub mod types;
 
 #[derive(Debug, Parser, Clone)]
+#[command(version, about)]
 pub struct Opt {
+    /// A placeholder to allow running as `cargo snatch`
+    ///
+    /// when running `cargo snatch ...` we get the following args: [`cargo-snatch`, `snatch`, ...]
+    /// this just ensures we're handling the second argument correctly
+    /// unfortunately this means this command cannot be ran in standalone mode
+    _snatch: SnatchMarker,
+
     /// Name of the crate to snatch
     name: String,
+}
+
+#[derive(Debug, Clone, Copy)]
+pub struct SnatchMarker;
+
+impl FromStr for SnatchMarker {
+    type Err = eyre::Error;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        if s != "snatch" {
+            eyre::bail!("Only `snatch` is allowed");
+        }
+
+        Ok(Self)
+    }
 }
 
 pub fn ensure_deps() {
@@ -182,8 +206,6 @@ fn create_snatches_repo(template_repo: &str, repo: &str) -> eyre::Result<()> {
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
     let args = Opt::parse();
-
-    println!("args = {args:?}");
 
     ensure_deps();
 
