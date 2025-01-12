@@ -30,13 +30,18 @@ But then life gets in the way. Maybe you get busy with a different project. Mayb
 
 There are many valid reasons for anybody to abandon a reserved crate on crates.io. But now, you've created a problem.
 
-A few months or years go by and someone else has an idea simmilar to yours, they start thinking of a name for their toy project and come up the same one too! But their to dismay that crate already exists. Worse than that, it's just an empty package with no contact info to the owner. If they're lucky, maybe you have some contact info on your associated GitHub profile and they reach out to you to see if you're willing to release the name.
+A few months or years go by and someone else has an idea simmilar to yours, they start thinking of a name for their toy project and come up with the same one! But to their dismay that crate already exists. Worse than that, it's just an empty package with no contact info to the owner. If they're lucky, maybe you have some contact info on your associated GitHub profile and they reach out to you to see if you're willing to release the name.
 
 But there are still a few hurdles to overcome - I know that if I were in their place I would have never sent that email in the first place. The value of a presumably cool name is not enough for me to go against my social anxiety like that.
 
 And even if they do manage to contact you in some way - will you respond? How easy it would be for the email to get lost in your Inbox full of very important things. And we're all busy people, I wouldn't judge you if you've read the email, put it aside for later, except the later would never come.
 
 This tool solves 2 issues. First it makes it super simple to reserve a name with just a single command. Second it establishes a way for those interested in your crate name to request a release with as few barriers as possible. 
+
+Both of those actions are achieved with just a single command
+```
+> cargo snatch crate-name
+```
 
 This barrier removal is achieved with a "snatches" repository. It's a mostly empty repository associated with your GH account where anyone can create an issue (from a template, very easy and not social anxiety inducing) to request the release. This repo is then linked in all snatched crates.
 
