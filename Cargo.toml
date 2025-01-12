@@ -1,0 +1,23 @@
+[package]
+name = "cargo-snatch"
+version = "0.1.0"
+edition = "2021"
+description = "A utility to reserve crate names on crates.io"
+repository = "https://github.com/dzejkop/cargo-snatch"
+license = "MIT"
+
+[dependencies]
+clap = { version = "4.5.26", features = ["derive"] }
+directories = "5.0.1"
+eyre = "0.6.12"
+handlebars = "6.3.0"
+include_dir = "0.7.4"
+indoc = "2.0.5"
+inquire = "0.7.5"
+reqwest = "0.12.12"
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.135"
+tempfile = "3.15.0"
+tokio = { version = "1.43.0", features = ["full"] }
+toml = "0.8.19"
+which = "7.0.1"
