@@ -159,6 +159,29 @@ fn cargo_publish_repo(repo_dir: impl AsRef<Path>) -> eyre::Result<()> {
     Ok(())
 }
 
+fn check_github_repo_exists(repo: &str) -> eyre::Result<bool> {
+    let output = Command::new("gh").args(["repo", "view", repo]).output()?;
+
+    Ok(output.status.success())
+}
+
+fn create_snatches_repo(template_repo: &str, repo: &str) -> eyre::Result<()> {
+    let output = Command::new("gh")
+        .arg("repo")
+        .arg("create")
+        .arg(repo)
+        .arg("--public")
+        .arg("--template")
+        .arg(template_repo)
+        .output()?;
+
+    if !output.status.success() {
+        panic!("Failed to create the snatches repo!");
+    }
+
+    Ok(())
+}
+
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
     let args = Opt::parse();
@@ -175,6 +198,20 @@ async fn main() -> eyre::Result<()> {
     } else {
         try_initialize_config(config_file)?
     };
+
+    if !check_github_repo_exists(&config.repo)? {
+        let repo = &config.repo;
+        println!("{repo} doesn't exist - we'll create it in the next step");
+        println!("The snatches repository is used to request the release of crate names");
+
+        println!("Choose the template repo from which your snatches repo will be created - you can also create it yourself");
+        let template = inquire::Text::new("Snatches template")
+            .with_default("dzejkop/snatches-template")
+            .prompt_skippable()?
+            .expect("Missing snatches repo template");
+
+        create_snatches_repo(&template, repo)?;
+    }
 
     let name = args.name;
     if check_crate_exists(&name).await? {
